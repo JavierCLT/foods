@@ -1,6 +1,5 @@
 // script.js
 
-import { firebaseConfig } from './config.js';
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
@@ -16,7 +15,7 @@ searchInput.addEventListener('input', function() {
 
   // Query the Firebase database for matching recipes
   const recipesRef = database.ref('recipes');
-  recipesRef.orderByChild('title').startAt(searchTerm).endAt(searchTerm + '\uf8ff').on('value', function(snapshot) {
+  recipesRef.orderByChild('Title').startAt(searchTerm).endAt(searchTerm + '\uf8ff').on('value', function(snapshot) {
     const searchResults = [];
     snapshot.forEach(function(childSnapshot) {
       searchResults.push(childSnapshot.val());
@@ -36,31 +35,26 @@ function displaySearchResults(results) {
     const recipeElement = document.createElement('div');
     recipeElement.classList.add('recipe-box');
     recipeElement.innerHTML = `
-      <h3 class="recipe-title" data-id="${recipe.id}">${recipe.title}</h3>
+      <h3 class="recipe-title">${recipe.Title}</h3>
     `;
     recipeElement.addEventListener('click', function() {
-      const recipeId = this.querySelector('.recipe-title').getAttribute('data-id');
-      fetchAndDisplayRecipeDetails(recipeId);
+      fetchAndDisplayRecipeDetails(recipe);
     });
     resultsContainer.appendChild(recipeElement);
   });
 }
 
-// Function to fetch and display recipe details
-function fetchAndDisplayRecipeDetails(recipeId) {
-  const recipeRef = database.ref(`recipes/${recipeId}`);
-  recipeRef.once('value', function(snapshot) {
-    const recipe = snapshot.val();
-    const detailsContainer = document.getElementById('recipe-details-container');
-    const titleElement = document.getElementById('recipe-title');
+// Function to display recipe details
+function fetchAndDisplayRecipeDetails(recipe) {
+  const detailsContainer = document.getElementById('recipe-details-container');
+  const titleElement = document.getElementById('recipe-title');
 
-    titleElement.textContent = recipe.title;
-    detailsContainer.querySelector('.ingredients-card ul').innerHTML = recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('');
-    detailsContainer.querySelector('.instructions-card ul').innerHTML = recipe.instructions.map(instruction => `<li>${instruction}</li>`).join('');
+  titleElement.textContent = recipe.Title;
+  detailsContainer.querySelector('.ingredients-card ul').innerHTML = recipe.Ingredients.map(ingredient => `<li>${ingredient.Name} - ${ingredient.Quantity} ${ingredient.Unit}</li>`).join('');
+  detailsContainer.querySelector('.instructions-card ul').innerHTML = recipe['Numbered Instructions'].map(instruction => `<li>${instruction}</li>`).join('');
 
-    detailsContainer.style.display = 'block';
-    toggleBlurAndOverlay(true);
-  });
+  detailsContainer.style.display = 'block';
+  toggleBlurAndOverlay(true);
 }
 
 // Function to toggle blur and overlay
