@@ -1,16 +1,13 @@
-var firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  databaseURL: "YOUR_DATABASE_URL",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID",
-  measurementId: "YOUR_MEASUREMENT_ID"
+const firebaseConfig = {
+  apiKey: "AIzaSyAf_ctPJrXjlrUsmxIlZB2fYsrX4DAJ3Hs",
+  authDomain: "jhrecipes1.firebaseapp.com",
+  databaseURL: "https://jhrecipes1-default-rtdb.firebaseio.com",
+  projectId: "jhrecipes1",
+  storageBucket: "jhrecipes1.appspot.com",
+  messagingSenderId: "319004682120",
+  appId: "1:319004682120:web:787f15928e249e6ea43c3d",
+  measurementId: "G-W9SJVFNSWD"
 };
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-
 
 
 
